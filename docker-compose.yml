@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      - LANG=C.UTF-8
+    container_name: wrk_cnt_pg
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+
+  project:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: docker
+    depends_on:
+      - postgres
+    volumes:
+      - ./:/pm_bot
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+
+volumes:
+  postgres_data:
