@@ -187,7 +187,8 @@ async def name_update(table_name):
     cnt_change, zero_cnt = 0, 0
     for row in range(2, ws.max_row+1):
         code, name = ws.cell(row=row, column=column_code).value, ws.cell(row=row, column=column_name).value
-        if not code:
+        if code == " " or not code:
+            ws.delete_rows(idx=row, amount=1)
             continue
 
         prod_db = sql.DBMagic(POL_MEL_DB)
@@ -200,7 +201,8 @@ async def name_update(table_name):
                 cnt_change += 1
                 logger.debug(f'В таблице обновлено наименование. Было: {name} Стало: {name_from_db}')
         else:
-            logger.warning(f'Товара {name} нет в БД')
+            ws.delete_rows(idx=row, amount=1)
+            logger.warning(f'Товара {name} нет в БД. Он удалем из таблицы.')
             zero_cnt += 1
             continue
     logger.warning(f"При обработке таблицы {table_name}, было изменено {cnt_change}, не найдено: {zero_cnt}")

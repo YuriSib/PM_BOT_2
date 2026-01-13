@@ -1,0 +1,31 @@
+1. Файлы операционных систем и IDE
+.DS_Store
+.idea/
+.vscode/
+
+# 2. Виртуальное окружение
+venv/
+env/
+
+# 3. Зависимости Python
+__pycache__/
+*.pyc
+*.pyd
+
+# 4. Файлы, специфичные для Django
+media/
+static/
+
+# 5. Файлы конфигурации и логов
+*.log
+settings.py
+.env
+
+# 6. Прочее
+*.db
+*.png
+*.jpg
+*.xml
+*.xlsx
+*.json
+*.txt
